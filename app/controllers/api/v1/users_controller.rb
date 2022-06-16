@@ -2,6 +2,10 @@ module Api
     module V1
 
         class UsersController < ApplicationController
+            def index
+                @users = User.all
+                render json: {data: @users},status: :ok
+            end
             def create
 
                 @user_data1 =User.find_by(email: user_params[:email])

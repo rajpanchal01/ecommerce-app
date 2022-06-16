@@ -20,7 +20,7 @@ module Api
         @order_item = OrderItem.new(order_item_params)
 
         if @order_item.save
-          render json: @order_item, status: :created, location: @order_item
+          render json: @order_item, status: :created
         else
           render json: @order_item.errors, status: :unprocessable_entity
         end
@@ -48,7 +48,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def order_item_params
-          params.require(:order_item).permit(:quantity)
+          params.permit(:quantity,:order_id,:product_id)
         end
     end
   end 

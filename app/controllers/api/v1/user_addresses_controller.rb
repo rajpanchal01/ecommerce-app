@@ -5,7 +5,11 @@ module Api
 
       # GET /user_addresses
       def index
+        if params[:user_id]
+          @user_addresses=UserAddress.where(user_id: params[:user_id])
+        else
         @user_addresses = UserAddress.all
+        end
 
         render json: @user_addresses
       end
@@ -18,9 +22,8 @@ module Api
       # POST /user_addresses
       def create
         @user_address = UserAddress.new(user_address_params)
-
         if @user_address.save
-          render json: @user_address, status: :created, location: @user_address
+          render json: @user_address, status: :created
         else
           render json: @user_address.errors, status: :unprocessable_entity
         end
@@ -48,8 +51,8 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def user_address_params
-          params.require(:user_address).permit(:address_line1, :address_line, :city, :country, :postal_code, :mobile_no)
+          params.require(:user_address).permit(:address_line1, :address_line2, :city, :country, :postal_code, :mobile_no,:user_id)
         end
     end
   end 
-end 
+end

@@ -5,9 +5,14 @@ module Api
 
       # GET /orders
       def index
-        @orders = Order.all
+        if params[:user_id]
+          @orders= Order.where(user_id: params[:user_id])
+        else
+          @orders = Order.all
+  
+        end
+          render json: @orders
 
-        render json: @orders
       end
 
       # GET /orders/1
@@ -20,7 +25,7 @@ module Api
         @order = Order.new(order_params)
 
         if @order.save
-          render json: @order, status: :created, location: @order
+          render json: @order, status: :created
         else
           render json: @order.errors, status: :unprocessable_entity
         end
@@ -48,7 +53,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def order_params
-          params.require(:order).permit(:total_amount)
+          params.permit(:total_amount,:user_id,:user_address_id)
         end
     end
   end
