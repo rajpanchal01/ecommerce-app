@@ -66,6 +66,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    bcrypt (3.1.18)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -89,6 +90,7 @@ GEM
       reline (>= 0.3.0)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
+    jwt (2.4.1)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -176,10 +178,12 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap
   debug
   image_processing (~> 1.2)
   jsonapi-serializer (~> 2.2)
+  jwt
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
