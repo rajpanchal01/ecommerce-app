@@ -1,0 +1,2 @@
+class OrderIteam < ApplicationRecord
+end

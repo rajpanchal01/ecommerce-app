@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :cart_items
+  resources :carts
+  resources :user_addresses
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
