@@ -5,6 +5,9 @@ module Api
 
       # GET /carts
       def index
+        puts "here"
+        UserMailer.new_order_email.deliver_later
+        puts "heree"
         if params[:user_id]
             @carts = Cart.where(user_id: params[:user_id])
         else
