@@ -5,8 +5,11 @@ module Api
 
       # GET /carts
       def index
-        @carts = Cart.all
-
+        if params[:user_id]
+            @carts = Cart.where(user_id: params[:user_id])
+        else
+          @carts = Cart.all
+        end
         render json: @carts
       end
 
@@ -17,12 +20,15 @@ module Api
 
       # POST /carts
       def create
-        @cart = Cart.new(cart_params)
-
-        if @cart.save
-          render json: @cart, status: :created, location: @cart
+        if !Cart.find_by(user_id: params[:user_id])
+          @cart = Cart.new(cart_params)
+          if @cart.save
+            render json: @cart, status: :created
+          else
+            render json: @cart.errors, status: :unprocessable_entity
+          end
         else
-          render json: @cart.errors, status: :unprocessable_entity
+          render json: {masssage: "User already exist with cart"}, status: :unprocessable_entity
         end
       end
 
@@ -48,7 +54,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def cart_params
-          params.fetch(:cart, {})
+          params.permit(:user_id)
         end
     end
   end 

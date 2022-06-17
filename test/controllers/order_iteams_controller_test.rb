@@ -1,36 +1,36 @@
 require "test_helper"
 
-class OrderIteamsControllerTest < ActionDispatch::IntegrationTest
+class OrderItemsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @order_iteam = order_iteams(:one)
+    @order_item = order_items(:one)
   end
 
   test "should get index" do
-    get order_iteams_url, as: :json
+    get order_items_url, as: :json
     assert_response :success
   end
 
-  test "should create order_iteam" do
-    assert_difference("OrderIteam.count") do
-      post order_iteams_url, params: { order_iteam: { quantity: @order_iteam.quantity } }, as: :json
+  test "should create order_item" do
+    assert_difference("OrderItem.count") do
+      post order_items_url, params: { order_item: { quantity: @order_item.quantity } }, as: :json
     end
 
     assert_response :created
   end
 
-  test "should show order_iteam" do
-    get order_iteam_url(@order_iteam), as: :json
+  test "should show order_item" do
+    get order_item_url(@order_item), as: :json
     assert_response :success
   end
 
-  test "should update order_iteam" do
-    patch order_iteam_url(@order_iteam), params: { order_iteam: { quantity: @order_iteam.quantity } }, as: :json
+  test "should update order_item" do
+    patch order_item_url(@order_item), params: { order_item: { quantity: @order_item.quantity } }, as: :json
     assert_response :success
   end
 
-  test "should destroy order_iteam" do
-    assert_difference("OrderIteam.count", -1) do
-      delete order_iteam_url(@order_iteam), as: :json
+  test "should destroy order_item" do
+    assert_difference("OrderItem.count", -1) do
+      delete order_item_url(@order_item), as: :json
     end
 
     assert_response :no_content

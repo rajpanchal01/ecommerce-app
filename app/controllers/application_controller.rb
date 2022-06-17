@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+    include ::ActionController::Serialization
     def encode_token(payload)
         JWT.encode(payload,'secret')
     end
