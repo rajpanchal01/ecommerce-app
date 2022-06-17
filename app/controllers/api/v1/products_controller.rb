@@ -4,12 +4,12 @@ module Api
   
         def index
           @products = Product.order('created_at DESC')
-          render json: {status: 'SUCCESS', message: 'Loaded Products', data:@products}, status: :ok
+          render json: @products,adapter: :json, status: :ok
         end
   
         def show
           @product = Product.find(params[:id])
-          render json: ProductSerializer.new(@product).serializable_hash[:data][:attributes] , status: :ok
+          render json: @product , status: :ok
         end
   
         def create
