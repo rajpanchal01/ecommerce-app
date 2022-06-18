@@ -3,6 +3,7 @@ class Product < ApplicationRecord
     belongs_to :sub_category
     has_one :inventory
     has_many_attached :posters
+    has_many :reviews
 
     def poster_urls
      #   poster_urls=[]
