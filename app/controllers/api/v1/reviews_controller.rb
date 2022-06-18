@@ -5,9 +5,15 @@ module Api
 
       # GET /reviews
       def index
-        @reviews = Review.all
+        if params[:product_id] 
+          @reviews=Review.where(product_id: params[:product_id]).order('rating DESC')
+        elsif params[:user_id]
+          @reviews=Review.where(user_id: params[:user_id]).order('rating DESC')
+        else
+          @reviews = Review.order('rating DESC')
+        end
+        render json: @reviews,status: :ok
 
-        render json: @reviews
       end
 
       # GET /reviews/1
@@ -48,7 +54,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def review_params
-          params.permit(:review_header,:review_content,:product_id,:user_id)
+          params.permit(:review_header,:review_content,:product_id,:user_id,:rating,review_images: [])
         end
       end
   end 
