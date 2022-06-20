@@ -3,12 +3,15 @@ module Api
       class SubCategoriesController < ApplicationController
   
         def index
+          @name=MainCategory.find_by(name: params[:main_category])
           if params[:main_category_id]
             @sub_categories=SubCategory.where(main_category_id: params[:main_category_id])
+          elsif params[:main_category]
+            @sub_categories=SubCategory.where(main_category_id: @name.id)
           else
-            @sub_categories = SubCategory.order('created_at DESC')
+          @sub_categories = SubCategory.order('created_at DESC')
           end
-          render json: {status: 'SUCCESS', message: 'Loaded !', data:@sub_categories}, status: :ok
+          render json: @sub_categories, status: :ok
 
         end
   

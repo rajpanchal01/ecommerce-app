@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       resources :order_items
       resources :payments
       resources :reviews
+      resources :discounts
+      resources :discount_items
     end
   end
 end
