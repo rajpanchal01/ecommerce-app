@@ -4,6 +4,8 @@ class Product < ApplicationRecord
     has_one :inventory
     has_many_attached :posters
     has_many :reviews
+    include PgSearch::Model
+    pg_search_scope :search_by_query, against: [:name, :description]
     
 
     def poster_urls

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       resources :sub_categories
       resources :users, only: [:create,:index]
       post "/login", to: "users#login"
+      get "/search", to: "products#search"
+      get "/rating", to: "products#rating"
       resources :cart_items
       resources :carts
       resources :user_addresses
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
       resources :reviews
       resources :discounts
       resources :discount_items
+      resources :sellers
     end
   end
 end
