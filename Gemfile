@@ -49,3 +49,4 @@ end
 
 gem "active_model_serializers"
 #gem "jsonapi-serializer", "~> 2.2"
+gem 'pg_search'

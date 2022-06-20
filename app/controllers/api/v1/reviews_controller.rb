@@ -5,7 +5,9 @@ module Api
 
       # GET /reviews
       def index
-        if params[:product_id] 
+        if params[:product_id] && params[:user_id]
+          @reviews=Review.where(product_id: params[:product_id],user_id: params[:user_id]).order('rating DESC')
+        elsif params[:product_id] 
           @reviews=Review.where(product_id: params[:product_id]).order('rating DESC')
         elsif params[:user_id]
           @reviews=Review.where(user_id: params[:user_id]).order('rating DESC')
