@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_20_073846) do
+
+ActiveRecord::Schema[7.0].define(version: 2022_06_20_094038) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +65,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_073846) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
+  create_table "discount_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "product_id", null: false
+    t.bigint "discount_id", null: false
+    t.index ["discount_id"], name: "index_discount_items_on_discount_id"
+    t.index ["product_id"], name: "index_discount_items_on_product_id"
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.string "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string "offer_type"
+    t.integer "offer_dicount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -153,6 +174,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_073846) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.string "full_name"
     t.index ["user_id"], name: "index_user_addresses_on_user_id"
   end
 
@@ -182,6 +204,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_073846) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "discount_items", "discounts"
+  add_foreign_key "discount_items", "products"
   add_foreign_key "inventories", "products"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
