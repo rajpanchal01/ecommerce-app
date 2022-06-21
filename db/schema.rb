@@ -155,8 +155,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_175434) do
   end
 
   create_table "sellers", force: :cascade do |t|
-    t.bigint "gst_id", null: false
-    t.bigint "pan_id", null: false
+    t.string "gst_id", null: false
+    t.string "pan_id", null: false
     t.string "seller_location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
