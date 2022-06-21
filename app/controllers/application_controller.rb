@@ -27,4 +27,19 @@ class ApplicationController < ActionController::API
         render json: {masssage: "You have to log in !"},status: :unauthorized unless
         authorized_user
     end
+    def isverified
+        if current_user.is_varified==1
+            true
+        else
+            false
+        end
+    end
+    def current_user
+        decoded_token =decode_token()
+        if decoded_token 
+            user_id =decoded_token[0]['user_id']
+            User.find_by(id: user_id)
+        end
+    end
+
 end

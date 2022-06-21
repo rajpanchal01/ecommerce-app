@@ -4,6 +4,8 @@ class Product < ApplicationRecord
     has_one :inventory
     has_many_attached :posters
     has_many :reviews
+    belongs_to :seller
+    has_one :discount_item
     include PgSearch::Model
     pg_search_scope :search_by_query, against: [:name, :description]
     

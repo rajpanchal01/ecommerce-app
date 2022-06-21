@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :wishlist_items
-  resources :wishlists
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
   # Defines the root path route ("/")
@@ -14,6 +12,7 @@ Rails.application.routes.draw do
       resources :sub_categories
       resources :users, only: [:create,:index]
       post "/login", to: "users#login"
+      get "/verify", to: "users#verify"
       get "/search", to: "products#search"
       get "/rating", to: "products#rating"
       resources :cart_items
@@ -26,6 +25,8 @@ Rails.application.routes.draw do
       resources :discounts
       resources :discount_items
       resources :sellers
+      resources :wishlist_items
+      resources :wishlists
     end
   end
 end

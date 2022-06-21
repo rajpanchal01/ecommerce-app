@@ -1,5 +1,5 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id ,:name,:description,:price,:sub_category_id,:brand_id,:poster_urls,:created_at,:updated_at
+  attributes :id ,:name,:description,:price,:sub_category_id,:brand_id,:seller_id,:poster_urls,:created_at,:updated_at
   belongs_to :brand
   has_many :reviews
   # def url
