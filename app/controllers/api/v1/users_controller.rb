@@ -12,6 +12,15 @@ module Api
                 @user_data2 =User.find_by(mobile_number: user_params[:mobile_number])
                 if (!@user_data1) && (!@user_data2) 
                     @user= User.create(user_params)
+                    if Cart.find_by(user_id: @user.id)
+
+                    else
+                        Cart.create(user_id: @user.id)
+                    end
+                    
+                    @otp=rand.to_s[2..7]
+                    UserOtp.create!(otp: @otp,user_id: @user.id)
+                    UserMailer.new_user_otp_email.deliver_later
                     if @user.valid?
                         token = encode_token({user_id: @user.id})
                         render json:  {user: @user,token: token}, status: :ok
@@ -24,13 +33,24 @@ module Api
                  end
             end
             def login
+                
                 @user =User.find_by(email: user_params[:email])
-                p @user
                 if @user && @user.authenticate(user_params[:password])
                     token = encode_token({user_id: @user.id})
                     render json:  {user: @user,token: token}, status: :ok
                 else
                     render json: {error: "Invalid username or password"}, status: :unprocessable_entity
+                end
+            end
+            def verify
+                if !isverified
+                    if UserOtp.find_by(otp: params[:otp])
+                        if current_user.id ==UserOtp.find_by(otp: params[:otp]).user_id
+                            current_user.update_attribute(:is_varified,1)
+                            UserOtp.find_by(user_id: current_user.id).destroy
+                            render json: { masssage: "is_varified"}
+                        end
+                    end
                 end
             end
             def logout

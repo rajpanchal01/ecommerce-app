@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_20_175434) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_21_160702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,7 +138,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_175434) do
     t.datetime "updated_at", null: false
     t.bigint "sub_category_id"
     t.bigint "brand_id"
+    t.bigint "seller_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
+    t.index ["seller_id"], name: "index_products_on_seller_id"
     t.index ["sub_category_id"], name: "index_products_on_sub_category_id"
   end
 
@@ -186,6 +188,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_175434) do
     t.index ["user_id"], name: "index_user_addresses_on_user_id"
   end
 
+  create_table "user_otps", force: :cascade do |t|
+    t.integer "otp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_user_otps_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -194,6 +204,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_175434) do
     t.string "name"
     t.bigint "mobile_number"
     t.integer "status", default: 0, null: false
+    t.integer "is_varified", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mobile_number"], name: "index_users_on_mobile_number", unique: true
   end
@@ -223,10 +234,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_175434) do
   add_foreign_key "payments", "orders"
   add_foreign_key "payments", "users"
   add_foreign_key "products", "brands"
+  add_foreign_key "products", "sellers"
   add_foreign_key "products", "sub_categories"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
   add_foreign_key "sellers", "users"
   add_foreign_key "sub_categories", "main_categories"
   add_foreign_key "user_addresses", "users"
+  add_foreign_key "user_otps", "users"
 end
