@@ -4,6 +4,8 @@ module Api
         before_action :set_seller, only: %i[ show update destroy ]
   
         # GET /orders
+        #OrderItem.where(:product_id=>a)
+        # a=Seller.find(1).products.pluck(:id)
         def index
           if params[:user_id]
             @sellers= Seller.where(user_id: params[:user_id])
@@ -14,7 +16,7 @@ module Api
             render json: @sellers
   
         end
-  
+        
         # GET /orders/1
         def show
           render json: @seller

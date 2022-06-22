@@ -25,7 +25,7 @@ module Api
         def update
           @inventory = Inventory.find(params[:id])
   
-          if @inventory.update_attributes(inventory_params)
+          if @inventory.update(inventory_params)
             render json: {status: 'SUCCESS', message: 'inventory is updated', data:@inventory}, status: :ok
           else
             render json: {status: 'Error', message: 'inventory is not updated', data:@inventory.errors}, status: :unprocessable_entity

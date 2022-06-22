@@ -4,7 +4,7 @@ class Cart < ApplicationRecord
     has_many :cart_items
     def products_details
         self.cart_items.map do |a|
-            a.product.name
+            a.product
         end
     end
 end
