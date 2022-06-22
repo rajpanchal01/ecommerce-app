@@ -57,7 +57,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def order_item_params
-          params.permit(:quantity,:order_id,:product_id)
+          params.permit(:quantity,:order_id,:product_id,:status)
         end
     end
   end 

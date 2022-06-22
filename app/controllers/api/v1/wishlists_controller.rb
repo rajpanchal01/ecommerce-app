@@ -5,7 +5,11 @@ module Api
 
       # GET /wishlists
       def index
+        if params[:user_id]
+          @wishlists = Wishlist.find_by(user_id: params[:user_id])
+        else
         @wishlists = Wishlist.all
+        end
         render json: @wishlists
       end
 
@@ -19,7 +23,7 @@ module Api
         if !Wishlist.find_by(user_id: params[:user_id])
           @wishlist = Wishlist.new(wishlist_params)
             if @wishlist.save
-              render json: @wishlist, status: :created, location: @wishlist
+              render json: @wishlist, status: :created
             else
               render json: @wishlist.errors, status: :unprocessable_entity
             end

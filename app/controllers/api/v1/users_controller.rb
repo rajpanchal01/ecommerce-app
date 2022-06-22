@@ -20,7 +20,7 @@ module Api
                     
                     @otp=rand.to_s[2..7]
                     UserOtp.create!(otp: @otp,user_id: @user.id)
-                    UserMailer.new_user_otp_email.deliver_later
+                    UserMailer.with(mail: @user).new_user_otp_email.deliver_later
                     if @user.valid?
                         token = encode_token({user_id: @user.id})
                         render json:  {user: @user,token: token}, status: :ok
