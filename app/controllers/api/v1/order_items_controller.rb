@@ -6,7 +6,14 @@ module Api
       # GET /order_items
       def index
         @order_items = OrderItem.all
-
+        if params[:seller_id]
+            a=Seller.find(params[:seller_id]).products.pluck(:id)
+            @order_items =@order_items.where(:product_id=>a)
+            # render json: @order_items
+        end
+        if params[:order_id]
+            @order_items=@order_items.where(:order_id=>params[:order_id])
+        end
         render json: @order_items
       end
 
@@ -18,7 +25,9 @@ module Api
       # POST /order_items
       def create
         @order_item = OrderItem.new(order_item_params)
-
+        quantity_drop=@order_item.quantity
+        # @order_item.product.id
+        Inventory.find_by(product_id: @order_item.product.id).decrement!(:quantity,quantity_drop.to_i )
         if @order_item.save
           render json: @order_item, status: :created
         else

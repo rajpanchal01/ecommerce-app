@@ -3,7 +3,16 @@ module Api
       class DiscountItemsController < ApplicationController
   
         def index
-          @discount_items = DiscountItem.order('created_at DESC')
+          if params[:offer_type]
+            @discount_items=DiscountItem.joins(:discount).order("offer_dicount").where(discounts: { offer_type: params[:offer_type] })
+          else
+            @discount_items = DiscountItem.order("created_at DESC")
+          end
+
+          # @discount_items=DiscountItem.joins(:discount).order(DiscountItem.offer_dicount)#.where(discount[:offer_type]=>"direct")
+          #@discount_items = DiscountItem.all
+          
+
           render json: @discount_items, status: :ok
         end
   
