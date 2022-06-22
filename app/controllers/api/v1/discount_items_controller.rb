@@ -4,7 +4,7 @@ module Api
   
         def index
           if params[:offer_type]
-            @discount_items=DiscountItem.joins(:discount).order("offer_dicount").where(discounts: { offer_type: params[:offer_type] })
+            @discount_items=DiscountItem.joins(:discount).order("offer_dicount DESC").where(discounts: { offer_type: params[:offer_type] })
           else
             @discount_items = DiscountItem.order("created_at DESC")
           end

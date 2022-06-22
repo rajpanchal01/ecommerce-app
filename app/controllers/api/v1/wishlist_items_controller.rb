@@ -22,8 +22,7 @@ module Api
       def create
         @wishlist_item=WishlistItem.where(wishlist_id: params[:wishlist_id],product_id: params[:product_id])
         if @wishlist_item!=[]
-          @wishlist_item[0].increment!(:item_quantity, 1)
-          render json: @wishlist_item , status: :ok
+          render json: @wishlist_item, status: :created
         else
             @wishlist_item = WishlistItem.new(wishlist_item_params)
 
@@ -57,7 +56,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def wishlist_item_params
-          params.fetch(:wishlist_id,:product_id)
+          params.permit(:wishlist_id,:product_id)
         end
     end
   end 
