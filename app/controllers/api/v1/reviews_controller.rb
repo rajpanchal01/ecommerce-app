@@ -2,6 +2,7 @@ module Api
     module V1
       class ReviewsController < ApplicationController
       before_action :set_review, only: %i[ show update destroy ]
+      before_action :set_user_id, only: %i[ create update destroy ]
 
       # GET /reviews
       def index
@@ -57,6 +58,9 @@ module Api
         # Only allow a list of trusted parameters through.
         def review_params
           params.permit(:review_header,:review_content,:product_id,:user_id,:rating,review_images: [])
+        end
+        def set_user_id
+          params[:user_id]=current_user.id
         end
       end
   end 

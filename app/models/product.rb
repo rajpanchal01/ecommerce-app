@@ -26,7 +26,7 @@ class Product < ApplicationRecord
         #Rails.application.routes.url_helpers.url_for(poster) if poster.attached?
         posters.map{|p| Rails.application.routes.url_helpers.url_for(p) }
     end
-    def discount
-        discount_item.discount if discount_item
+    def discount_per
+        discount_item.discount.offer_dicount if discount_item
     end
 end

@@ -41,7 +41,7 @@ module Api
   
         private
           def discount_params
-            params.permit(:name,:start_date,:end_date,:offer_type,:offer_dicount,:slider)
+            params.permit(:name,:start_date,:end_date,:offer_type,:offer_dicount,:image)
           end
   
       end

@@ -3,6 +3,9 @@ module Api
       class DiscountItemsController < ApplicationController
   
         def index
+          if params[:discount_id]
+            @discount_items=DiscountItem.where(discount_id: params[:discount_id])
+          end
           if params[:offer_type]
             @discount_items=DiscountItem.joins(:discount).order("offer_dicount DESC").where(discounts: { offer_type: params[:offer_type] })
           else

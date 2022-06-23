@@ -2,7 +2,7 @@ module Api
   module V1    
     class CartsController < ApplicationController
       before_action :set_cart, only: %i[ show update destroy ]
-
+      before_action :set_user_id
       # GET /carts
       def index
         puts "here"
@@ -58,6 +58,9 @@ module Api
         # Only allow a list of trusted parameters through.
         def cart_params
           params.permit(:user_id)
+        end
+        def set_user_id
+          params[:user_id]=current_user.id
         end
     end
   end 

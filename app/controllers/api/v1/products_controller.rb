@@ -58,7 +58,7 @@ module Api
         def update
           @product = Product.find(params[:id])
   
-          if @product.update_attributes(product_params)
+          if @product.update(product_params)
             render json: {status: 'SUCCESS', message: 'Product is updated', data:@product}, status: :ok
           else
             render json: {status: 'Error', message: 'Product is not updated', data:@product.errors}, status: :unprocessable_entity
@@ -74,7 +74,7 @@ module Api
   
         private
           def product_params
-            params.permit(:name, :description,:price,:sub_category_id,:brand_id,:seller_id, posters: [])
+            params.permit(:name, :description,:price,:sub_category_id,:brand_id,:seller_id,:discount, posters: [])
           end
   
       end

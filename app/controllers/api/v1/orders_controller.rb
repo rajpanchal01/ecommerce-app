@@ -2,7 +2,7 @@ module Api
   module V1
     class OrdersController < ApplicationController
       before_action :set_order, only: %i[ show update destroy ]
-
+      before_action :set_user_id,only: %i[ show create ]
       # GET /orders
       def index
         if params[:user_id]
@@ -72,6 +72,9 @@ module Api
         # Only allow a list of trusted parameters through.
         def order_params
           params.permit(:total_amount,:user_id,:user_address_id,:status)
+        end
+        def set_user_id
+          params[:user_id]=current_user.id
         end
     end
   end

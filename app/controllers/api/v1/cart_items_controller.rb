@@ -2,7 +2,8 @@ module Api
   module V1
     class CartItemsController < ApplicationController
       before_action :set_cart_item, only: %i[ show update destroy ]
-
+      before_action :set_cart
+      before_action :set_item_quantity
       # GET /cart_items
       def index
         if params[:cart_id]
@@ -66,6 +67,14 @@ module Api
         def cart_item_params
           params.permit(:item_quantity,:cart_id,:product_id)
         end
+        def set_cart
+          @cart= Cart.find_by(user_id: current_user.id).id
+          params[:cart_id]=@cart
+        end
+        def set_item_quantity
+          params[:item_quantity]=1
+        end
+        
     end
   end
 end
