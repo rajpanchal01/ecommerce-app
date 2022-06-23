@@ -2,7 +2,7 @@ module Api
   module V1
     class PaymentsController < ApplicationController
       before_action :set_payment, only: %i[ show update destroy ]
-
+      before_action :set_user_id
       # GET /payments
       def index
         @payments = Payment.all
@@ -49,6 +49,9 @@ module Api
         # Only allow a list of trusted parameters through.
         def payment_params
           params.require(:payment).permit(:amount, :status,:order_id,:user_id)
+        end
+        def set_user_id
+          params[:user_id]=current_user.id
         end
     end
   end 

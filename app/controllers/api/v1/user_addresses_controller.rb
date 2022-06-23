@@ -2,7 +2,8 @@ module Api
   module V1
     class UserAddressesController < ApplicationController
       before_action :set_user_address, only: %i[ show update destroy ]
-
+      before_action :set_user_id, only: %i[ create update destroy ]
+      #before_action :authorize
       # GET /user_addresses
       def index
         if params[:user_id]
@@ -52,6 +53,9 @@ module Api
         # Only allow a list of trusted parameters through.
         def user_address_params
           params.permit(:address_line1, :address_line2, :city, :country, :postal_code, :mobile_no,:user_id,:full_name)
+        end
+        def set_user_id
+          params[:user_id]=current_user.id
         end
     end
   end 
